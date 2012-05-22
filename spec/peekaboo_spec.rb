@@ -22,7 +22,7 @@ feature  "Index page" do
     visit("/")
     page.should have_content("Peekaboo I see you")
   end
-  
+
   scenario "should link to push page" do
     visit("/")
     click_link("Push")
@@ -43,7 +43,7 @@ feature  "Push page" do
     click_button("Push")
     page.should have_css("p.notice", :text => "Successfully added.")
   end
-  
+
   scenario "should error if text field empty" do
     visit("/push")
     fill_in('question', :with => "")

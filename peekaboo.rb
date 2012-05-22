@@ -3,7 +3,6 @@ require 'haml'
 require 'redis'
 
 set :haml, :format => :html5
-
 redis = Redis.new
 
 get "/" do
