@@ -1,7 +1,7 @@
 %html
   %head
     %title
-      Peekaboo | Push 
+      Peekaboo | Push
 %body
   %p
     Push
@@ -9,6 +9,6 @@
     = notice
   %form{:name => "question_form", :method => "post", :action => "/push"}
     %label{:for => "question"} Question:
-    %input{:type => "text", :name => "question", :class => "text"}
+    %input{:type => "text", :name => "question", :class => "text", :size => 50}
 
-    %input{:type => "submit", :value => "Push"} 
+    %input{:type => "submit", :value => "Push"}
