@@ -1,10 +1,9 @@
 require 'sinatra'
 require 'haml'
-require 'pry'
 require 'redis'
 
 set :haml, :format => :html5
-  
+
 redis = Redis.new
 
 get "/" do
@@ -23,8 +22,7 @@ post "/push" do
   title = params[:question]
   status = ""
   unless title  == ""
-    redis.incr "question:id"
-    question_id = redis.get("question:id")
+    question_id = redis.incr "question:id"
     redis.rpush("questions", question_id)
     redis.set("question:#{question_id}:title", params[:question])
     status = :success
