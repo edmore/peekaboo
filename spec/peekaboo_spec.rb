@@ -27,6 +27,19 @@ feature  "Index page" do
     visit("/")
     click_link("Push")
     page.should have_content("Push")
+    page.current_path.should == "/push"
+  end
+
+  scenario "should link to start session  page" do
+    visit("/")
+    click_link("Start Session")
+    page.current_path.should == "/start"
+  end
+
+  scenario "should link to clear session" do
+    visit("/")
+    click_link("Clear Session")
+    page.current_path.should == "/clear"
   end
 end
 
@@ -41,13 +54,30 @@ feature  "Push page" do
     visit("/push")
     fill_in('question', :with => "What's your name")
     click_button("Push")
-    page.should have_css("p.notice", :text => "Successfully added.")
+    page.should have_css("p.message", :text => "Successfully added.")
   end
 
   scenario "should error if text field empty" do
     visit("/push")
     fill_in('question', :with => "")
     click_button("Push")
-    page.should have_css("p.notice", :text => "Oops, please enter text.")
+    page.should have_css("p.message", :text => "Oops, please enter text.")
   end
 end
+
+feature  "Start Sesssion" do
+  setup
+  scenario "should start a session" do
+    visit("/start")
+    page.current_path.should == "/start"
+  end
+end
+
+feature  "Clear Session" do
+  setup
+  scenario "should clear a session" do
+    visit("/start")
+    page.current_path.should == "/start"
+  end
+end
+

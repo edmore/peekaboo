@@ -5,8 +5,8 @@
 %body
   %p
     Push
-  %p.notice
-    = notice
+  %p.message
+    = message
   %form{:name => "question_form", :method => "post", :action => "/push"}
     %label{:for => "question"} Question:
     %input{:type => "text", :name => "question", :class => "text", :size => 50}

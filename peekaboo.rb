@@ -12,19 +12,36 @@ end
 get "/push" do
   status = params[:status] if params[:status]
   unless status.nil?
-    notice =  (status == "success") ? "Successfully added." : "Oops, please enter text."
+    message =  (status == "success") ? "Successfully added." : "Oops, please enter text."
   end
-  haml :push, :locals => {:notice => notice}
+  haml :push, :locals => {:message => message}
 end
 
 post "/push" do
-  title = params[:question]
+  text = params[:question]
   status = ""
-  unless title  == ""
+  unless text == ""
     question_id = redis.incr "question:id"
     redis.rpush("questions", question_id)
-    redis.set("question:#{question_id}:title", params[:question])
+    redis.set("question:#{question_id}:text", params[:question])
     status = :success
   end
   redirect "/push?status=#{status}"
 end
+
+get "/start" do
+  length = redis.llen("questions")
+    (length).times do
+      question_id = redis.lpop("questions")
+      text = redis.get("question:#{question_id}:text")
+      system("espeak '#{text}'")
+      sleep 5
+    end
+    [200, {'Content-type' => 'text/plain'},"End of Session"]
+end
+
+get "/clear" do
+  redis.flushall
+  [200, {'Content-type' => 'text/plain'},"Session Cleared"]
+end
+
