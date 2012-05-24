@@ -34,7 +34,7 @@ get "/start" do
     (length).times do
       question_id = redis.lpop("questions")
       text = redis.get("question:#{question_id}:text")
-      system("espeak '#{text}'")
+      system("espeak '#{text}'") || system("speak '#{text}'")
       sleep 5
     end
     [200, {'Content-type' => 'text/plain'},"End of Session"]
