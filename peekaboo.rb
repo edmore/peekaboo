@@ -24,6 +24,7 @@ post "/push" do
     question_id = redis.incr "question:id"
     redis.rpush("questions", question_id)
     redis.set("question:#{question_id}:text", params[:question])
+    redis.set("question:#{question_id}:filename", (params[:question]).reverse)
     status = :success
   end
   redirect "/push?status=#{status}"
@@ -32,11 +33,14 @@ end
 get "/start" do
   length = redis.llen("questions")
   all_text = []
+  all_filenames = []
   (length).times do
     question_id = redis.lpop("questions")
     all_text << redis.get("question:#{question_id}:text")
+    all_filenames << redis.get("question:#{question_id}:filename")
   end
-  haml :start, :locals => {:all_text => all_text}
+  player_files = all_text.zip(all_filenames)
+  haml :start, :locals => {:player_files => player_files}
 end
 
 get "/clear" do
