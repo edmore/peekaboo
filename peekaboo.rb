@@ -32,14 +32,14 @@ end
 
 get "/start" do
   length = redis.llen("questions")
-  all_text = []
-  all_filenames = []
+  text = []
+  filenames = []
   (length).times do
     question_id = redis.lpop("questions")
-    all_text << redis.get("question:#{question_id}:text")
-    all_filenames << redis.get("question:#{question_id}:filename")
+    text << redis.get("question:#{question_id}:text")
+    filenames << redis.get("question:#{question_id}:filename")
   end
-  player_files = all_text.zip(all_filenames)
+  player_files = text.zip(filenames)
   haml :start, :locals => {:player_files => player_files}
 end
 
