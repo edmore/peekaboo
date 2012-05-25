@@ -31,13 +31,12 @@ end
 
 get "/start" do
   length = redis.llen("questions")
+  all_text = []
   (length).times do
     question_id = redis.lpop("questions")
-    text = redis.get("question:#{question_id}:text")
-    system("espeak '#{text}'") || system("speak '#{text}'")
-    sleep 5
+    all_text << redis.get("question:#{question_id}:text")
   end
-  [200, {'Content-type' => 'text/plain'},"End of Session"]
+  haml :start, :locals => {:all_text => all_text}
 end
 
 get "/clear" do
