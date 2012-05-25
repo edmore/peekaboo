@@ -39,8 +39,8 @@ get "/start" do
     text << redis.get("question:#{question_id}:text")
     filenames << redis.get("question:#{question_id}:filename")
   end
-  player_files = text.zip(filenames)
-  haml :start, :locals => {:player_files => player_files}
+  files = text.zip(filenames)
+  haml :start, :locals => {:files => files}
 end
 
 get "/clear" do
