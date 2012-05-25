@@ -1,5 +1,5 @@
 soundManager.url = 'soundmanager/swf'; 
-soundManager.debugMode = false
+soundManager.debugMode = true
 
 soundManager.onready(function(){
   if( files.length > 0 ){
