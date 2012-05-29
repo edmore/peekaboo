@@ -45,8 +45,8 @@ get "/start" do
     text << redis.get("question:#{question_id}:text")
     filenames << redis.get("question:#{question_id}:filename")
   end
-  files = text.zip(filenames)
-  haml :start, :locals => {:files => files}
+  sounds = text.zip(filenames)
+  haml :start, :locals => {:sounds => sounds}
 end
 
 get "/clear" do
