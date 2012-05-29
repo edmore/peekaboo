@@ -68,7 +68,8 @@ end
 feature  "Start Sesssion" do
   setup
   scenario "should start a session" do
-    visit("/start")
+    visit("/")
+    click_link("Start Session")
     page.current_path.should == "/start"
   end
 end
@@ -76,8 +77,9 @@ end
 feature  "Clear Session" do
   setup
   scenario "should clear a session" do
-    visit("/start")
-    page.current_path.should == "/start"
+    visit("/")
+    click_link("Clear Session")
+    page.current_path.should == "/clear"
   end
 end
 
