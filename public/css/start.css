@@ -1,0 +1,12 @@
+#container{ font-size: 6em; float: left; }
+#question{ 
+float: right; 
+border: 1px solid #000;
+}
+#question_header{  
+background-color: blue;
+text-align: center;
+color: #FFF;
+font-weight: bold;
+}
+#person{ clear: both; }

@@ -1,5 +1,19 @@
 :javascript
-  var sounds = #{sounds};
+  var sounds = #{sounds},
+      presets = ["who is this", "what is this"];
 
+%link{ :rel=>"stylesheet", :type=>"text/css", :href=>"css/start.css" }
 %script{:src => "soundmanager/script/soundmanager2.js", :type => "text/javascript"}
 %script{:src => "javascripts/start.js", :type => "text/javascript"}
+
+%body>
+  %div{ :id => "container" }
+    Loading .....
+  %div{ :id => "question" }
+    %div{ :id => "question_header" }
+      %span
+        Questions
+    %div{:id => "question_item" }
+      %ul
+  %div{ :id=> "person" }
+  %div{ :id=> "object" }

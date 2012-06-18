@@ -22,13 +22,12 @@ get "/push" do
 end
 
 post "/push" do
-  text = params[:question]
   status = ""
-  unless text == ""
+  unless params[:question] == ""
     question_id = redis.incr "question:id"
     filename = "tmp/#{Digest::SHA1.hexdigest(params.to_s)}.mp3"
     redis.rpush("questions", question_id)
-    redis.set("question:#{question_id}:text", params[:question])
+    redis.set("question:#{question_id}:text", params[:question].downcase)
     redis.set("question:#{question_id}:filename", filename)
     espeak(filename, :text => "'#{params[:question]}'")
     status = :success
