@@ -9,6 +9,11 @@ include ESpeak
 set :haml, :format => :html5
 redis = Redis.new
 
+def sanitize_dir_entries( dir )
+  entries = Dir.entries( dir )
+  entries.select{ |x| (x != ".." && x != ".") }
+end
+
 get "/" do
   haml :index
 end
@@ -45,7 +50,9 @@ get "/start" do
     filenames << redis.get("question:#{question_id}:filename")
   end
   sounds = text.zip(filenames)
-  haml :start, :locals => {:sounds => sounds}
+  people = sanitize_dir_entries( "public/images/people" );
+  objects = sanitize_dir_entries( "public/images/objects" );
+  haml :start, :locals => {:sounds => sounds, :people => people, :objects => objects}
 end
 
 get "/clear" do
