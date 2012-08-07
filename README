@@ -1,1 +1,2 @@
-Toy App for experimenting with Redis queuing and Text to speech synthesis
+Toy App for experimenting with Redis queuing and Text to speech synthesis.
+Coded in Sinatra and JS. Redis and Espeak as dependencies. In browser playback using Sound Manager.
