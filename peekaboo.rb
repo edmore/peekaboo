@@ -14,6 +14,10 @@ def sanitize_dir_entries( dir )
   entries.select{ |x| (x != ".." && x != ".") }
 end
 
+def command?(command)
+  system("which #{command} > /dev/null 2>&1")
+end
+
 get "/" do
   haml :index
 end
@@ -30,11 +34,17 @@ post "/push" do
   status = ""
   unless params[:question] == ""
     question_id = redis.incr "question:id"
-    filename = "tmp/#{Digest::SHA1.hexdigest(params.to_s)}.mp3"
+    name = "tmp/#{Digest::SHA1.hexdigest(params.to_s)}"
+    filename = "#{name}.mp3"
     redis.rpush("questions", question_id)
     redis.set("question:#{question_id}:text", params[:question].downcase)
     redis.set("question:#{question_id}:filename", filename)
-    espeak(filename, :text => "'#{params[:question]}'")
+    if(command?("say"))
+      cmd = "say -v Vicki '#{params[:question]}' -o #{name}.aiff && lame --quiet #{name}.aiff #{name}.mp3 && rm -f #{name}.aiff"
+      system(cmd) # Mac OS X
+    else
+      espeak(filename, :text => "'#{params[:question]}'") # Linux
+    end
     status = :success
   end
   redirect "/push?status=#{status}"
@@ -57,8 +67,8 @@ end
 
 get "/clear" do
   redis.flushall
-  system("rm -rf tmp/*")
-  [200, {'Content-type' => 'text/plain'},"Session Cleared"]
+  system("rm -rf tmp/*.mp3")
+  [200, {'Content-type' => 'text/plain'},"Session Cleared - [Audio files removed]."]
 end
 
 get "/play" do

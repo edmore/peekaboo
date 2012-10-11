@@ -1,2 +1,7 @@
-Toy App for experimenting with Redis queuing and Text to speech synthesis.
-Coded in Sinatra and JS. Redis and Espeak as dependencies. In browser playback using Sound Manager.
+Toy App for my daughter. Experimenting with Redis queuing and Text to speech synthesis.
+Coded in Sinatra and JS. In browser playback using Sound Manager.
+
+Dependencies:
+Redis
+say and lame - Mac OS X
+espeak and lame - Linux
