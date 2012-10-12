@@ -3,4 +3,5 @@
 dump.rdb
 .directory
 .rvmrc
+.DS_Store
 tmp/*.mp3
