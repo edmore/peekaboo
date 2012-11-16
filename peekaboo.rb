@@ -39,10 +39,10 @@ post "/push" do
     redis.rpush("questions", question_id)
     redis.set("question:#{question_id}:text", params[:question].downcase)
     redis.set("question:#{question_id}:filename", filename)
-    if(command?("say"))
+    if( command?("say") && command?("lame") )
       cmd = "say -v Vicki '#{params[:question]}' -o #{name}.aiff && lame --quiet #{name}.aiff #{name}.mp3 && rm -f #{name}.aiff"
       system(cmd) # Mac OS X
-    else
+    elsif ( command?("lame") && command?("espeak") )
       espeak(filename, :text => "'#{params[:question]}'") # Linux
     end
     status = :success
