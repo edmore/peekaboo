@@ -9,7 +9,7 @@ Coded in Sinatra and JS. In browser playback using Sound Manager.
 6. browse http://localhost:4567
 
 Dependencies:
-ruby >= 1.9.3
-Redis
-say and lame - Mac OS X
-espeak and lame - Linux
+- ruby >= 1.9.3
+- Redis
+- say and lame - Mac OS X
+- espeak and lame - Linux
