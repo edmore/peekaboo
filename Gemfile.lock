@@ -1,7 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    espeak-ruby (0.4.0)
+    espeak-ruby (1.0.3)
     haml (3.1.6)
     rack (1.4.1)
     rack-protection (1.2.0)
